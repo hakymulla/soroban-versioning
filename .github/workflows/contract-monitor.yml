@@ -28,20 +28,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: stellar/actions/rust-cache@main
 
-
-      # - name: Install Stellar CLI
-        # run: |
-          # cargo install stellar-cli --version 22.5.0
-          # stellar --version
-
       - name: Fetch contract and compute hash
         shell: bash
-        run: |
-          # export PATH="/usr/local/bin:$PATH"
-          which stellar
-          stellar network add --rpc-url https://soroban-rpc.mainnet.stellar.gateway.fm --network-passphrase "Public Global Stellar Network ; September 2015" mainnet
-          stellar contract fetch --id CATRNPHYKNXAPNLHEYH55REB6YSAJLGCPA4YM6L3WUKSZOPI77M2UMKI --network mainnet | openssl sha512 > current_hash.txt
-          echo "Computed hash: $(cat current_hash.txt)"
+        run: which stellar
+        run: stellar network add --rpc-url https://soroban-rpc.mainnet.stellar.gateway.fm --network-passphrase "Public Global Stellar Network ; September 2015" mainnet
+        run: stellar contract fetch --id CATRNPHYKNXAPNLHEYH55REB6YSAJLGCPA4YM6L3WUKSZOPI77M2UMKI --network mainnet | openssl sha512 > current_hash.txt
+        run: echo "Computed hash: $(cat current_hash.txt)"
+          
 
       - name: Compare hashes
         run: |
