@@ -30,6 +30,8 @@ jobs:
 
       - run: rustup update
 
+      - run: stellar --help
+
       # soroban target
       - run: rustup target add wasm32v1-none
 
