@@ -26,6 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run:  apt-get update && apt-get install -y libudev-dev libdbus-1-dev libusb-1.0-0-dev pkg-config
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+
       - uses: stellar/actions/rust-cache@main
 
       - name: Install Stellar CLI
