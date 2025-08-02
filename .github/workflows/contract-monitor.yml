@@ -28,6 +28,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: stellar/actions/rust-cache@main
 
+      - name: Install Stellar CLI
+        run: cargo install stellar-cli --version 22.5.0
+
       - name: Fetch contract and compute hash
         shell: bash
         run: |
