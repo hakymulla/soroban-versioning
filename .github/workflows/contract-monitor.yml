@@ -5,7 +5,7 @@ permissions:
 
 on:
   push:
-    branches: [ test ]
+    branches: [ main ]
   pull_request:
 
   schedule:
@@ -41,6 +41,8 @@ jobs:
           stellar network add --rpc-url https://mainnet.sorobanrpc.com --network-passphrase "Public Global Stellar Network ; September 2015" mainnet
           CURRENT_HASH=$(stellar contract fetch --id ${{ env.CONTRACT_ID }} --network mainnet | openssl sha512)
           echo "Computed hash: $CURRENT_HASH"
+          echo "CURRENT_HASH=$CURRENT_HASH" >> $GITHUB_ENV
+          
 
       - name: Compare hashes
         run: |
@@ -50,7 +52,6 @@ jobs:
             echo "Error: Contract hash has changed!" >> "$GITHUB_STEP_SUMMARY"
             echo "Stored hash: $stored_hash" >> "$GITHUB_STEP_SUMMARY"
             echo "Current hash: ${{ env.CURRENT_HASH }}" >> "$GITHUB_STEP_SUMMARY"
-            echo "Current hash: $CURRENT_HASH" >> "$GITHUB_STEP_SUMMARY"
             echo "Please update contract/domain_[...].wasm file after verifying the contract change." >> "$GITHUB_STEP_SUMMARY"
             exit 1
           else
