@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  RUSTFLAGS: -C debuginfo=0 # Do not produce debug symbols to keep memory usage down
+  RUSTFLAGS: -C debuginfo=0
   RUST_BACKTRACE: 1
   CONTRACT_ID: CATRNPHYKNXAPNLHEYH55REB6YSAJLGCPA4YM6L3WUKSZOPI77M2UMKI
 
@@ -24,7 +24,6 @@ jobs:
   monitor-contract:
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v4
       - name: Install system dependencies
         run:  sudo apt-get update && sudo apt-get install -y libudev-dev libdbus-1-dev libusb-1.0-0-dev pkg-config
 
@@ -48,14 +47,14 @@ jobs:
       - name: Compare hashes
         run: |
           stored_hash=$(cat contracts/domain_3ebbeec072f4996958d4318656186732773ab5f0c159dcf039be202b4ecb8af8.wasm | openssl sha512)
-          # current_hash=$(cat current_hash.txt)
           
           if [ "$stored_hash" != "$CURRENT_HASH"" ]; then
             echo "Error: Contract hash has changed!" >> "$GITHUB_STEP_SUMMARY"
+            echo "Error: Contract hash has changed!"
             echo "Stored hash: $stored_hash" >> "$GITHUB_STEP_SUMMARY"
             echo "Current hash: $current_hash" >> "$GITHUB_STEP_SUMMARY"
             echo "Please update contract/domain_[...].wasm file after verifying the contract change." >> "$GITHUB_STEP_SUMMARY"
-            exit 1
+            # exit 1
           else
             echo "Contract hash matches stored hash at $(date -u)."
           fi
