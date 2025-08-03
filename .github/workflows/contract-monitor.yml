@@ -41,7 +41,6 @@ jobs:
           stellar network add --rpc-url https://mainnet.sorobanrpc.com --network-passphrase "Public Global Stellar Network ; September 2015" mainnet
           CURRENT_HASH=$(stellar contract fetch --id ${{ env.CONTRACT_ID }} --network mainnet | openssl sha512)
           echo "Computed hash: $CURRENT_HASH"
-          echo "CURRENT_HASH=$CURRENT_HASH" >> $GITHUB_ENV
           
 
       - name: Compare hashes
