@@ -24,6 +24,7 @@ jobs:
   monitor-contract:
     runs-on: ubuntu-latest
     steps:
+      - run: ls
       - name: Install system dependencies
         run:  sudo apt-get update && sudo apt-get install -y libudev-dev libdbus-1-dev libusb-1.0-0-dev pkg-config
 
