@@ -38,7 +38,7 @@ jobs:
         shell: bash
         run: |
           which stellar
-          ls /home
+          ls /
           stellar network add --rpc-url https://mainnet.sorobanrpc.com --network-passphrase "Public Global Stellar Network ; September 2015" mainnet
           CURRENT_HASH=$(stellar contract fetch --id ${{ env.CONTRACT_ID }} --network mainnet | openssl sha512)
           echo "Computed hash: $CURRENT_HASH"
